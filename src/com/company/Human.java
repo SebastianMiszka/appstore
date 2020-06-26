@@ -1,6 +1,6 @@
 package com.company;
 
-public class Human {
+public class Human extends RandomGenerator {
     String name;
     String surname;
     
