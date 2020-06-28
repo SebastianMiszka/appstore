@@ -1,10 +1,13 @@
 package com.company;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class RandomGenerator {
 
     Random generator = new Random();
+
+    Scanner scan = new Scanner(System.in);
 
     public Integer randomInt(Integer number) {
 
@@ -151,5 +154,15 @@ public class RandomGenerator {
         }
         return createdProjectName;
     }
+
+    public Integer maxInput(int max) {
+        Integer number;
+        do {
+            System.out.println("Wybierz co chcesz zrobić, z przedziału od 1 do " + max);
+            number = scan.nextInt();
+        } while (number < 1 || number > max);
+        return number;
+    }
+
 
 }
