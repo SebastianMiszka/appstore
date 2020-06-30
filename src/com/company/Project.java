@@ -320,6 +320,7 @@ public class Project extends RandomGenerator{
         return value;
     }
 
+
     public Double getRealPrice(Double price, Integer Type) {
         Double temp = price;
         if (randomInt(100) == 1 && Type == 3) {
@@ -329,6 +330,86 @@ public class Project extends RandomGenerator{
         return temp;
 
     } //checking type 3 client witch payments
+
+    public LocalDate getDateOfCommissioning(Project project) {
+        return project.realDateOfCommissioning;
+    }
+
+    public boolean status(Project project) {
+        return project.isFinished;
+    }
+    public Project changeStatus(Project project) {
+        project.isFinished = true;
+        return project;
+    }
+
+    public Double getAmount_Of_Penalty(Project project) {
+        return project.amount_Of_Penalty;
+    }
+
+    public boolean getPayed(Project project) {
+        return project.payed;
+    }
+    public AbilityDays[] fromProjectToAbilityDaystab(Project project) {
+        return project.listAbilityDaystab;
+    }
+
+    public Project setNewHours(Project project) {
+        AbilityDays[] tab = fromProjectToAbilityDaystab(project);
+        project.playerWorking=true;
+        project.listAbilityDaystab = AbilityDays.workDay(tab);
+        return project;
+    }
+
+    public Integer getRequiredTestDays(Project project) {
+        return project.requiredTestDays;
+    }
+
+
+
+    public Integer checkProjectStatusSkills(Project project) {
+        AbilityDays[] tab = fromProjectToAbilityDaystab(project);
+        return AbilityDays.checkStatus(tab);
+    }
+
+    public Project setNewTestingHours(Project project) {
+        project.playerWorking=true;
+        project.requiredTestDays--;
+        return project;
+    }
+
+
+    public boolean parseSkills(Project project, String[] Tab) {
+        AbilityDays[] tab = fromProjectToAbilityDaystab(project);
+        return AbilityDays.parseSkills(tab, Tab);
+    }
+    public boolean getControlPoint(Project project){
+        if((project.playerWorking==false)&&(project.bigProject==true)){
+            return true ;
+        }
+        return false;
+    }
+    public Project dontMoneyForU(Project project) {
+        if (project.iGotMoney == false) {
+            project.realDateOfCommissioning.plusYears(1000000000);
+            project.payDay.plusYears(1000000000);
+            project.realPayDay.plusYears(1000000000);
+            project.dateOfCommissioning.plusYears(1000000000);
+
+        }
+        return project;
+    }
+
+
+    public Double getPrice(Project project) {
+        return project.realPrice;
+    }
+
+    public Project payed(Project project) {
+        project.payed = true;
+        return project;
+    }
+
 
     public LocalDate getRealDateOfCommissioning(LocalDate time) {
         return time.plusDays(5);
@@ -340,7 +421,7 @@ public class Project extends RandomGenerator{
 
     @Override
     public String toString() {
-        return "Project{" +
+        return "Projekt{" +
                 "nazwa='" + projectName + '\'' +
                 ", Imię Klienta'" + nameClient + '\'' +
                 ", Potrzebne umiejętności i dni do wykonania: " + Arrays.toString(listAbilityDaystab) +

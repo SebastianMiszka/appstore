@@ -96,6 +96,14 @@ public class AbilityDays extends RandomGenerator {
 
         return check;
     }
+    public List<AbilityDays> fromSkillAndDaysTabToString(AbilityDays[] tab) {
+        List<AbilityDays> TempList = new LinkedList<>();
+        for (int i = 0; i < tab.length; i++) {
+
+            TempList.add(tab[i]);
+        }
+        return TempList;
+    }
 
 
     public Integer getDaysFromList() {
@@ -107,6 +115,24 @@ public class AbilityDays extends RandomGenerator {
 
         }
         return value;
+    }
+
+    public AbilityDays[] workDay(AbilityDays[] tab) {
+        Integer[] tempInttab = IntTab(fromSkillAndDaysTabToString(tab));
+        String[] tempStrintab = stringTab(fromSkillAndDaysTabToString(tab));
+        Integer size = fromSkillAndDaysTabToString(tab).size();
+        System.out.println("Na jakiej technologii chcesz pracować, wybierz od 0 ");
+        Integer tempOption = maxInput(size - 1);
+        tempInttab[tempOption]--;
+        return returnToAbilityDaystab(tempInttab, tempStrintab, size);
+    }
+    public AbilityDays[] returnToAbilityDaystab(Integer[] itab, String[] stab, Integer size) {
+        AbilityDays[] TempTab = new AbilityDays[size];
+        for (int i = 0; i < size; i++) {
+            TempTab[i] = new AbilityDays(stab[i], itab[i]);
+        }
+
+        return TempTab;
     }
 
     public boolean generateUniqueSkills(String skill) {
@@ -146,6 +172,34 @@ public class AbilityDays extends RandomGenerator {
         for(AbilityDays items: list) {
             System.out.println(items.time+items.ability);
         }
+    }
+
+    public Integer[] IntTab(List<AbilityDays> tempList) {
+        Integer[] TempTab = new Integer[tempList.size()];
+        int i = 0;
+        for (AbilityDays Item : tempList) {
+
+            TempTab[i] = Item.time;
+
+            i++;
+        }
+        return TempTab;
+    }
+
+    public Integer checkStatus(AbilityDays[] tab) {
+        Integer[] tempInttab = IntTab(fromSkillAndDaysTabToString(tab));
+        String[] tempStrintab = stringTab(fromSkillAndDaysTabToString(tab));
+        Integer size = fromSkillAndDaysTabToString(tab).size();
+        Integer allHours = 0;
+        for (int i = 0; i < size; i++) {
+            if (tempInttab[i] == 0) {
+                System.out.println(i + ". Technologia: " + tempStrintab[i] + " Skończona");
+            } else {
+                System.out.println(i + ". Technologia:  " + tempStrintab[i] + " godziny: " + tempInttab[i]);
+            }
+            allHours = allHours + tempInttab[i];
+        }
+        return allHours;
     }
 
     public AbilityDays[] ListToTab(List<AbilityDays> list)    {

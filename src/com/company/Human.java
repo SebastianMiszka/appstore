@@ -14,5 +14,11 @@ public class Human extends RandomGenerator {
     public Human() {
 
     }
-    
+    public Human generateTester() {
+        return new Human(createRandomName(9), createRandomSurname(9), 3000.0);
+    }
+
+    public Human generateDealer() {
+        return new Human(createRandomName(9), createRandomSurname(9),3500.0);
+    }
 }
