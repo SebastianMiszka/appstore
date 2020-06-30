@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 public class Game extends RandomGenerator {
     int tour = 2;
+    Project project = new Project();
+    Player first = new Player("Sebastian", "Miszka");
     LocalDate time = LocalDate.of(2020, 1, 1);
 
     DayOfWeek DayOfWeek = time.getDayOfWeek();
@@ -45,7 +47,7 @@ public class Game extends RandomGenerator {
         public void Choice(Integer option) {
             switch (option) {
                 case 1:
-                    System.out.println("Wybór 1");
+                    if (signAContract() == true) EndTour();
                     break;
             }
             switch (option) {
@@ -80,16 +82,37 @@ public class Game extends RandomGenerator {
             }
             switch (option) {
                 case 8: {
-                    System.out.println("Wybór 8");
+                    System.out.println("Zus opłacony");
                     EndTour();
                 }
                     break;
             }
         }
 
+    public boolean signAContract() {
+        if (project.getSizeOfList() == 0) {
+            project.createProjectList(first.getPoints(), time);
+        }
+        project.showListOfProject();
+        Integer sizeList = project.getSizeOfList();
+        System.out.println(sizeList + ". Wróć");
+        System.out.println("Masz " + first.getPoints() + " punktów, jak zbierzesz więcej punktów możesz odkryć większe projekty");
+        System.out.println("\nMasz " + sizeList + " dostępnych projektów.\nWybierz któryś");
+        Integer tempOption = maxInput(sizeList);
+        if (tempOption != sizeList) {
+            first.addToMyProjectsList(project.getAProject(tempOption));
+            project.removeFromList();
+            System.out.println("Wybrany przez Ciebie projekt1 to:\n");
+            first.showProjectList();
+            System.out.println("Projekt dodany to Twojej listy projektów\nAktywne projekty: " + first.activeProjects());
+            return true;
+        }
+        return false;
+    }
+
     public void EndTour() {
         TimeAdd();
-        tour++;
+        System.out.println("Jest to tura gry nr: " + tour++);
     }
 
 }

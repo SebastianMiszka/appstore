@@ -78,7 +78,7 @@ public class RandomGenerator {
                 break;
 
             default:
-                createdRandomSurname = "Edwards ";
+                createdRandomSurname = "Edwards";
 
         }
         return createdRandomSurname;
@@ -119,48 +119,101 @@ public class RandomGenerator {
         String createdProjectName = "";
         switch (randomInt(11)) {
             case 1:
-                createdProjectName = "1";
+                createdProjectName = "Sklep internetowy";
                 break;
             case 2:
-                createdProjectName = "2";
+                createdProjectName = "Gra 3D";
                 break;
             case 3:
-                createdProjectName = "3";
+                createdProjectName = "Kalkulator";
                 break;
             case 4:
-                createdProjectName = "4";
+                createdProjectName = "Obsługa maszyn";
                 break;
             case 5:
-                createdProjectName = "5";
+                createdProjectName = "Photoshop";
                 break;
             case 6:
-                createdProjectName = "6";
+                createdProjectName = "OBS";
                 break;
             case 7:
-                createdProjectName = "7";
+                createdProjectName = "Winamp";
                 break;
             case 8:
-                createdProjectName = "8";
+                createdProjectName = "Windows 2.0";
                 break;
             case 9:
-                createdProjectName = "9";
+                createdProjectName = "Aplikacja Bankowa";
                 break;
             case 10:
-                createdProjectName = "10";
+                createdProjectName = "Tinder";
                 break;
             default:
-                createdProjectName = "11";
+                createdProjectName = "Facebook";
 
         }
         return createdProjectName;
     }
 
+    public Integer generateType() {
+
+        Integer createdType  = 0;
+
+
+        Integer randomNumber = randomInt(99);
+        if (randomNumber <= 33 && randomNumber >= 1) {
+            createdType  = 1;
+        }
+        if (randomNumber <= 66 && randomNumber >= 34) {
+            createdType  = 2;
+        }
+        if (randomNumber <= 99 && randomNumber >= 67) {
+            createdType = 3;
+        }
+        return createdType;
+    }
+
+    public String[] uniqueAbility() {
+
+        Integer no = randomInt(3) + 3;
+        String ability;
+        String[] tab = new String[no];
+
+
+        for (int i = 0; i < no; i++) {
+            if (i == 0) {
+                tab[i] = createWorkerAbility();
+            } else {
+                do {
+                    ability = createWorkerAbility();
+                } while (ability(tab, ability) == true);
+                tab[i] = ability;
+
+            }
+
+        }
+
+        return tab;
+
+    }
+
+    public boolean ability(String[] tab, String ability) {
+        boolean value = false;
+        for (int i = 0; i < tab.length; i++) {
+            if (tab[i] == ability) {
+                value = true;
+
+            }
+        }
+        return value;
+    }
+
     public Integer maxInput(int max) {
         Integer number;
         do {
-            System.out.println("Wybierz co chcesz zrobić, z przedziału od 1 do " + max);
+            System.out.println("Wybierz co chcesz zrobić, z przedziału od 0 do " + max);
             number = scan.nextInt();
-        } while (number < 1 || number > max);
+        } while (number < 0 || number > max);
         return number;
     }
 

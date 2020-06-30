@@ -6,8 +6,6 @@ public class Main {
         Game time = new Game();
         time.Today();
         time.TimeAdd();
-
-
         for (; ; ) {
             time.CodeTime();
         }
