@@ -82,10 +82,10 @@ public class Project extends RandomGenerator{
     public Project() {
 
     }
-
+//Tworzenie nowego projektu ze wszystkimi potrzebnymi atrybutami
     public void generateProject(Integer ability, Integer time, LocalDate acctualDay) {
         client.checkClientList();
-        AbilityDays.createabilityDaysList(ability, time);
+        AbilityDays.createAbilityDaysList(ability, time);
         Integer number = randomInt(33);
         Integer workingDays = AbilityDays.getDaysFromList() - AbilityDays.getDaysFromList() * randomInt(25) / 100;
         LocalDate PayDay = acctualDay.plusDays(workingDays);
@@ -99,7 +99,7 @@ public class Project extends RandomGenerator{
         Double RealPrice = getRealPrice(Price, TypeClient);
         Double ValueOfPently = RealPrice * randomInt(5) / 100;
         LocalDate DateOfCommissioning = acctualDay.plusDays((workingDays / 5) * 7);
-        AbilityDays[] skillsTab = AbilityDays.returSkillAndDays();
+        AbilityDays[] skillsTab = AbilityDays.returAbilityDays();
         boolean iGotMoneyFromClient = iGotMoney(TypeClient);
         LocalDate RealDateOfCommissioning = getRealDateOfCommissioning(DateOfCommissioning);
         boolean isBig=false;
@@ -129,7 +129,7 @@ public class Project extends RandomGenerator{
 
     }
 
-
+//Określanie jaki stropień trudności ma projekt
     public String setComplexityInList(List<AbilityDays> list) {
         String value = "";
         switch (list.size()) {
@@ -152,7 +152,7 @@ public class Project extends RandomGenerator{
         generateProject(ability, time, acctualDay);
     }
 
-
+//Punkty postępu w grze
     public void createProjectList(Integer point, LocalDate acctualDay) {
         Integer number;
         Integer time;
@@ -273,18 +273,18 @@ public class Project extends RandomGenerator{
             } while (point > 0);
         }
     }
-
+//Czyszczenie listy projektów
     public void removeFromList() {
         listOfProject.clear();
     }
-
+//Wyświetlanie listy projektów
     public void showListOfProject() {
         for (Project project : listOfProject) {
             System.out.println(project);
 
         }
     }
-
+//Pobieranie konkretnego projektu
     public Project getAProject(Integer Option) {
         return listOfProject.get(Option);
     }
@@ -319,37 +319,41 @@ public class Project extends RandomGenerator{
         }
         return value;
     }
+    //Czas zapłaty
+    public LocalDate getClientPayDay(Project project) {
+        return project.realPayDay;
+    }
 
-
+//Szansa na brak płatności od klienta numer 3 na poziomie 1%
     public Double getRealPrice(Double price, Integer Type) {
         Double temp = price;
         if (randomInt(100) == 1 && Type == 3) {
             temp = 0.0;
         }
-
         return temp;
-
-    } //checking type 3 client witch payments
+    }
 
     public LocalDate getDateOfCommissioning(Project project) {
         return project.realDateOfCommissioning;
     }
-
+//status projektu
     public boolean status(Project project) {
         return project.isFinished;
     }
+    //Zmienianie statusu projestu na skończony
     public Project changeStatus(Project project) {
         project.isFinished = true;
         return project;
     }
-
+//wartość kary za spóźnienie
     public Double getAmount_Of_Penalty(Project project) {
         return project.amount_Of_Penalty;
     }
-
+//zapłata
     public boolean getPayed(Project project) {
         return project.payed;
     }
+
     public AbilityDays[] fromProjectToAbilityDaystab(Project project) {
         return project.listAbilityDaystab;
     }
@@ -360,18 +364,16 @@ public class Project extends RandomGenerator{
         project.listAbilityDaystab = AbilityDays.workDay(tab);
         return project;
     }
-
+//Wymagana ilość dni do testowania projektu
     public Integer getRequiredTestDays(Project project) {
         return project.requiredTestDays;
     }
-
-
 
     public Integer checkProjectStatusSkills(Project project) {
         AbilityDays[] tab = fromProjectToAbilityDaystab(project);
         return AbilityDays.checkStatus(tab);
     }
-
+//Testowanie projektu które usuwa dni wymagane do testowania
     public Project setNewTestingHours(Project project) {
         project.playerWorking=true;
         project.requiredTestDays--;
@@ -400,7 +402,7 @@ public class Project extends RandomGenerator{
         return project;
     }
 
-
+//Pobieranie ceny projektu
     public Double getPrice(Project project) {
         return project.realPrice;
     }
@@ -414,7 +416,7 @@ public class Project extends RandomGenerator{
     public LocalDate getRealDateOfCommissioning(LocalDate time) {
         return time.plusDays(5);
     }
-
+//Pobieranie rozmiaru listy
     public Integer getSizeOfList() {
         return listOfProject.size();
     }
@@ -435,6 +437,6 @@ public class Project extends RandomGenerator{
                 ", Czy gracz pracuje ?" + playerWorking;
 
     }
-    }
+}
 
 

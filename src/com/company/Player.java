@@ -26,19 +26,24 @@ public class Player extends Worker {
     List<Human> myTesterList = new LinkedList<>();
     List<Friend> myFriendList = new LinkedList<>();
 
+    //Dodanie nowego projektu do listy projektów
     public void addToMyProjectsList(Project project) {
         myProjectList.add(project);
     }
+
+    //Dodawanie punktów postępu w grze
     public void addPoint() {
         lookingPoints++;
     }
 
+    //Wyświetlanie listy projektów
     public void showProjectList() {
         for (Project item : myProjectList) {
             System.out.println(item);
         }
     }
 
+    //Menu wyboru zatrudniania pracowników
     public void hireEmployee() {
         System.out.println("Masz: " + getClassifieds() + " Żeby mieć więcej musisz zapłacić 5000$");
         System.out.println("Masz teraz: " + getCash() + " $");
@@ -55,20 +60,22 @@ public class Player extends Worker {
     public Integer getClassifieds() {
         return classifieds;
     }
-
+//pobieranie ilości kasy
     public Double getCash() {
         return cash;
     }
-
+//Pobieranie ilości sprzedawców z listy
     public Integer getNumberOfDealers() {
         return myDealerList.size();
     }
-
+//Wyświetlanie listy pracowników
     public void showMyWorkerList() {
         for (Worker item : myWorkerList) {
             System.out.println(item);
         }
     }
+
+    //zatrudnianie Testera
     public boolean hireTester() {
         myTesterList.add(generateTester());
         Human tempObj = myTesterList.get(myTesterList.size() - 1);
@@ -80,6 +87,7 @@ public class Player extends Worker {
         }
         return false;
     }
+    //zatrudnianie sprzedawcy
     public boolean hireDealer() {
         myDealerList.add(generateDealer());
         Human tempObj = myDealerList.get(myDealerList.size() - 1);
@@ -95,6 +103,8 @@ public class Player extends Worker {
     public void setClassifieds() {
         this.classifieds++;
     }
+
+    //Sprawdzanie ilości pracowników
     public void numberOfEmployee() {
         System.out.println("Masz teraz " + getNumberOfDealers() + " Sprzedawców");
         System.out.println("Masz teraz " + getNumberOfProgrammers() + " Programistów");
@@ -112,6 +122,7 @@ public class Player extends Worker {
             }
         }
     }
+    //zwalnianie testera
     public boolean dissmisTester() {
         if (getNumberOfTesters() != 0) {
             if (pay(1500.0) == true) {
@@ -126,6 +137,7 @@ public class Player extends Worker {
         }
         return false;
     }
+    //zwalnianie sprzedawcy
     public boolean dissmisDealer() {
         if (getNumberOfDealers() != 0) {
             if (pay(2000.0) == true) {
@@ -140,6 +152,7 @@ public class Player extends Worker {
         }
         return false;
     }
+    //zwalnianie programisty
     public boolean dissmisWorker() {
         if (getNumberOfProgrammers() != 0) {
             System.out.println("Lista zwolnionych ");
@@ -160,6 +173,7 @@ public class Player extends Worker {
         }
         return false;
     }
+    //Menu zwalniania pracowników
     public void dissmisMenu() {
         System.out.println("\nKogo chcesz zwolnić?");
         System.out.println("0. Programista");
@@ -167,6 +181,8 @@ public class Player extends Worker {
         System.out.println("2. Tester");
         System.out.println("3. Wyjdź");
     }
+
+    //Po wybraniu kogo chce się zwonić, sprawdza czy zwolnienie doszło do skutku
     public boolean dissmisEmploye() {
         numberOfEmployee();
         dissmisMenu();
@@ -185,24 +201,27 @@ public class Player extends Worker {
         }
         return false;
     }
-
+//Pobieranie ostatniego zakończonego projektu
     public Project getLastFinishedProject() {
         return finishedProjects.get(finishedProjects.size() - 1);
     }
-
+//Dodawanie do listy programistów
     public void addToMyWorkerList(Worker object) {
         myWorkerList.add(object);
     }
+    //pobieranie ostatniego programisty
     public Worker getLastWorkerObj() {
         return myWorkerList.get(myWorkerList.size() - 1);
     }
-
+//Sprawdzanie czy ma się wystarczająco dużo pieniędzy na opłatę
     public boolean checkIfUCouldPay(Double cash) {
         if (this.cash >= cash) {
             return true;
         }
         return false;
     }
+
+    //Funkcja płacenia
     public boolean pay(Double cash) {
         if (checkIfUCouldPay(cash) == true) {
             Double money = this.cash;
@@ -214,6 +233,8 @@ public class Player extends Worker {
         }
         return false;
     }
+
+    //Płacenie pracownikowi
     public boolean payForWorker() {
         Worker tempObj = getLastWorkerObj();
         if (pay(tempObj.cost) == true) {
@@ -222,10 +243,11 @@ public class Player extends Worker {
         return false;
     }
 
+    //Usuwanie ostatniego pracownika z listy pracowników
     public void removeLastObjFromWorkerList() {
         myWorkerList.remove(myProjectList.size() - 1);
     }
-
+//Zatrudnianie programisty
     public boolean hireWorker() {
         generateWorker(getClassifieds());
         showWorkerList();
@@ -246,11 +268,7 @@ public class Player extends Worker {
         }
         return false;
     }
-
-    public void RemoveLastObjFromWorkerList() {
-        myWorkerList.remove(myProjectList.size() - 1);
-    }
-
+//Pobieranie wielkości listy pracowników
     public int sizeWorkerList() {
         return myWorkerList.size();
     }
@@ -258,10 +276,11 @@ public class Player extends Worker {
     public void updateDataProjectList(Project project, int Index) {
         myProjectList.set(Index, project);
     }
+    //Pobieranie wielkości listy projektów
     public Integer finishedProjects() {
         return finishedProjects.size();
     }
-
+//Pobieranie indexu skończonego projektu
     public Project getFinishedProject(Integer index) {
         return finishedProjects.get(index);
     }
@@ -281,52 +300,58 @@ public class Player extends Worker {
     public Integer getNumberOfProgrammers() {
         return myWorkerList.size();
     }
-
     public Project getLastObjectFromProject() {
         return myProjectList.get(myProjectList.size() - 1);
     }
-
     public String[] getProgrammerSkills(Integer index) {
         return myWorkerList.get(index).ability;
     }
-
-    public Project getProject(Integer number) {
-        return myProjectList.get(number);
+    public Project getProject(Integer number) { return myProjectList.get(number);
     }
     public Integer getNumberOfTesters() {
         return myTesterList.size();
     }
-//    public Double payForEmployee() {
-////        Double worker = payForeEmployer();
-//        double dealer = payForeEmployer(myDealerList);
-//        double tester = payForeEmployer(myTesterList);
-////        Double sum = worker + dealer + tester;
-////        return sum;
-////    }
-//    public void payForMonth() {
-//        Double Cash = this.cash;
-//        this.cash = Cash - payForEmployee();
-//    }
-
+    //zapłata wszystkim pracownikom
+    public Double payForEmployee() {
+        Double worker = payForeEmployer();
+        double dealer = payForeEmployer(myDealerList);
+        double tester = payForeEmployer(myTesterList);
+        Double sum = worker + dealer + tester;
+        return sum;
+    }
+    //Płatność pracownikowi
+    public Double payForeEmployer() {
+        Double sum = 0.0;
+        for (Worker item : myWorkerList) {
+            sum = sum + item.cost + 2000;
+        }
+        return sum;
+    }
+    public void payForMonth() {
+        Double Cash = this.cash;
+        this.cash = Cash - payForEmployee();
+    }
+//usuwanie projektu z listy
     public void removeProject(Project project) {
         myProjectList.remove(project);
     }
+    //dodanie projektu do listy jako skończony
     public void addFinishedProject(Project project) {
         finishedProjects.add(project);
     }
-
+//Wyświetlanie skończonych projektów
     public void showFinishedProject() {
         for (Project item : finishedProjects) {
             System.out.println(item);
         }
     }
-
+//Dodanie przyjaciela do listy przyjaciół
     public void addFriendToMyList(List<Friend> list) {
         for (int i = 0; i < 3; i++) {
             myFriendList.add(list.get(i));
         }
     }
-
+//Dodawanie pieniędzy
     public void setCash(Double cash) {
         Double Cash = this.cash;
         this.cash = Cash + cash;
@@ -335,6 +360,7 @@ public class Player extends Worker {
     public List<Project> getMyProjectList() {
         return myProjectList;
     }
+    //Płatność pracownikowi
     public Double payForeEmployer(List<Human> list) {
         Double sum = 0.0;
         for (Human item : list) {
@@ -342,10 +368,11 @@ public class Player extends Worker {
         }
         return sum;
     }
+    //Wyświetlanie iości aktywnych projektów
     public Integer activeProjects() {
         return myProjectList.size();
     }
-
+//dodanie punktów postępu
     public Integer getPoints() {
         return lookingPoints;
     }

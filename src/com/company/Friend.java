@@ -19,7 +19,7 @@ public class Friend extends  Worker {
     public Friend() {
 
     }
-
+//Tworzenie nowego przyjaciela
     public void generateFriend() {
         for (int i = 0; i < 3; i++) {
 
@@ -37,9 +37,6 @@ public class Friend extends  Worker {
                 "\nNazwisko='" + surname + '\'' +
                 "\n Umiejętności=" + Arrays.toString(ability) +
                 "\nTyp=" + type + "\nWybierz według typu, typ 0 jest najdroższy, 1 najgorszy, ale nie tak drogi jak 0, 2 najgorszy, ale także najtańszy";
-    }
-    public String[] getSkills(Friend friend) {
-        return friend.ability;
     }
 
 

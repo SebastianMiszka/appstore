@@ -19,13 +19,14 @@ public class Worker extends Human {
     public Worker() {
     }
 
+    //Tworzenie nowego randomowego programisty
     public void generateWorker() {
         String[] tab = uniqueAbility();
         Double nCost = 10000.0 + (1500 * (tab.length - 1));
         workerList.add(new Worker(createRandomName(9), createRandomSurname(9), tab, nCost));
 
     }
-
+//Wyświetlanie listy programistów
     public void showWorkerList() {
         Integer i = 0;
         for (Worker item : workerList) {
@@ -33,7 +34,7 @@ public class Worker extends Human {
             i++;
         }
     }
-
+//Pobieranie numeru indexu programisty
     public Worker getWorker(Integer index) {
         return workerList.get(index);
     }
@@ -47,10 +48,7 @@ public class Worker extends Human {
                         ", kasa: " + cost;
     }
 
-    public String[] getSkills(Worker object) {
-        return object.ability;
-    }
-
+//usuwanie programisty z listy
     public void removeFromWorkerList(Integer index) {
         workerList.remove(workerList.get(index));
     }

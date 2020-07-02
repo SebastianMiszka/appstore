@@ -18,19 +18,19 @@ public class AbilityDays extends RandomGenerator {
 
     List<AbilityDays> abilityDaysList = new LinkedList<>();
 
-    public void createabilityDaysList(Integer number, Integer time) {
+    public void createAbilityDaysList(Integer number, Integer time) {
         if (abilityDaysList.size() != 0){
             abilityDaysList.clear();
         }
         for (int i = 0; i < number; i++) {
             if (abilityDaysList.size() == 0) {
-                abilityDaysList.add(new AbilityDays(createWorkerAbility(), randomInt(100)));
+                abilityDaysList.add(new AbilityDays(createWorkerAbility(), randomInt(time) + 1));
             } else {
                 String value;
                 do {
                     value = createWorkerAbility();
                 } while (generateUniqueSkills(value) == true);
-                abilityDaysList.add(new AbilityDays(value, randomInt(100)));
+                abilityDaysList.add(new AbilityDays(value, randomInt(time) +1));
             }
         }
     }
@@ -55,7 +55,14 @@ public class AbilityDays extends RandomGenerator {
         }
         return value;
     }
+    public List<AbilityDays> fromAbilityDaysTabToString(AbilityDays[] tab) {
+        List<AbilityDays> TempList = new LinkedList<>();
+        for (int i = 0; i < tab.length; i++) {
 
+            TempList.add(tab[i]);
+        }
+        return TempList;
+    }
     public String[] stringTab(List<AbilityDays> tempList) {
         String[] TempTab = new String[tempList.size()];
         int i = 0;
@@ -66,14 +73,7 @@ public class AbilityDays extends RandomGenerator {
         return TempTab;
     }
 
-    public List<AbilityDays> fromAbilityDaysTabToString(AbilityDays[] tab) {
-        List<AbilityDays> TempList = new LinkedList<>();
-        for (int i = 0; i < tab.length; i++) {
 
-            TempList.add(tab[i]);
-        }
-        return TempList;
-    }
     public boolean parseSkills(AbilityDays[] tab, String[] Tab) {
         List<AbilityDays> tempList = fromAbilityDaysTabToString(tab);
         String[] first = stringTab(tempList);
@@ -87,7 +87,6 @@ public class AbilityDays extends RandomGenerator {
                 if (first[i].equals(second[j]) == true) {
                     value++;
                 }
-
             }
         }
         if (value == first.length) {
@@ -145,35 +144,6 @@ public class AbilityDays extends RandomGenerator {
         return value;
     }
 
-    public AbilityDays[] returSkillAndDays() {
-        AbilityDays[] TempTab = new AbilityDays[6];
-        for (int i = 0; i < abilityDaysList.size(); i++) {
-            TempTab[i] = abilityDaysList.get(i);
-
-        }
-        return TempTab;
-    }
-
-    public List<AbilityDays> getDayFromTab (AbilityDays[] tab){
-
-        List<AbilityDays> TempList = new LinkedList<>();
-
-        return TempList;
-
-    }
-
-
-
-    public void clearList() {
-        abilityDaysList.clear();
-    }
-
-    public void showList(List<AbilityDays> list){
-        for(AbilityDays items: list) {
-            System.out.println(items.time+items.ability);
-        }
-    }
-
     public Integer[] IntTab(List<AbilityDays> tempList) {
         Integer[] TempTab = new Integer[tempList.size()];
         int i = 0;
@@ -202,24 +172,6 @@ public class AbilityDays extends RandomGenerator {
         return allHours;
     }
 
-    public AbilityDays[] ListToTab(List<AbilityDays> list)    {
-        AbilityDays[]tempTab = new AbilityDays[6];
-        for (int i=0;i<abilityDaysList.size();i++)
-        {
-
-            tempTab[i] = abilityDaysList.get(i);
-
-        }
-
-        return tempTab;
-    }
-
-    public void showList(AbilityDays[] tempTab) {
-        for(int i=0;i<tempTab.length;i++)
-        {
-            System.out.println(tempTab[i]);
-        }
-    }
 
     public AbilityDays[] returAbilityDays()    {
         AbilityDays[] TempTab= new AbilityDays[6];

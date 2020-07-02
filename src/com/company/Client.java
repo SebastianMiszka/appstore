@@ -20,13 +20,13 @@ public class Client extends Human {
     public Client() {
 
     }
-
+//Jeżeli lista klientów jest równa 0 to stwórz listę
     public void checkClientList() {
         if (clientList.size() == 0) {
             generateList();
         }
     }
-
+//Dodawanie nowego klienta do listy
     public void generateList() {
         for (int i = 0; i <= 33; i++) {
             clientList.add(new Client(name = createRandomName(9),
@@ -37,7 +37,7 @@ public class Client extends Human {
 
     }
 
-
+//Pobieranie imienia klienta z listy klientów
     public String getNameClientFromList(Integer id) {
         String value = "";
         for (Client client : clientList) {
@@ -47,7 +47,7 @@ public class Client extends Human {
         }
         return value;
     }
-
+//Pobieranie typu pracownika z listy
     public Integer getTypeFromList(Integer id) {
         Integer value = 0;
         for (Client client : clientList) {

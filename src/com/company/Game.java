@@ -4,7 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 public class Game extends RandomGenerator {
-    int tour = 2;
+    int tour = 1;
     Project project = new Project();
     Player first = new Player("Sebastian", "Miszka");
     LocalDate time = LocalDate.of(2020, 1, 1);
@@ -23,19 +23,19 @@ public class Game extends RandomGenerator {
         System.out.println("Dzisiaj jest: " + time + " " + time.getDayOfWeek());
     }
 
-    public void StartGame(){
-        System.out.println("Zaczynamy grę");
-
-    }
-
     public void firstDay() {
         friend.generateFriend();
         first.addFriendToMyList(friend.getFriendList());
+        endDay();
 
     }
 
     public void CodeTime() {
         if (tour == 1) {
+            Today();
+            System.out.println("każdy dzień to jedna tura. Jeżeli jest to dzień wolny od pracy, możesz pracować samodzielnie.\n" +
+                    "Jeżeli jest to dzień roboczy możesz pracować samodzielnie, pracują Twoi podwykonawcy i pracownicy.\n" +
+                    "Każdego dnia możesz wykonać jedną z czynności wyświetlonych na liście poniżej:\n");
             firstDay();
 
         }else {
@@ -52,6 +52,7 @@ public class Game extends RandomGenerator {
             Choice(maxInput(8));
         }
     }
+    //funkcja wyboru opcji z menu gry
         public void Choice(Integer option) {
             switch (option) {
                 case 1:
@@ -96,7 +97,7 @@ public class Game extends RandomGenerator {
                     break;
             }
         }
-
+//Funkcja podpisywania kontraktu
     public boolean signAContract() {
         if (project.getSizeOfList() == 0) {
             project.createProjectList(first.getPoints(), time);
@@ -159,7 +160,7 @@ public class Game extends RandomGenerator {
         }
         return false;
     }
-
+//Oddawanie projektu klientowi
     public boolean handOverTheProject() {
         if ((first.activeProjects() == 0) && (first.finishedProjects() == 0)) {
             System.out.println("Nie masz ani jednego projektu");
@@ -197,7 +198,7 @@ public class Game extends RandomGenerator {
         }
         return false;
     }
-
+//Zatrudnianie pracownika
     public void hireAnEmployee() {
         first.hireEmployee();
         switch (maxInput(5)) {
@@ -224,7 +225,7 @@ public class Game extends RandomGenerator {
         }
     }
 
-
+//Zwalnianie pracownika
     public void dissmisEmploye() {
         if (first.dissmisEmploye() == true) endDay();
     }
@@ -233,7 +234,7 @@ public class Game extends RandomGenerator {
         first.addPoint();
         EndTour();
     }
-
+//Dodawanie tury gry
     public void EndTour() {
         TimeAdd();
         System.out.println("Jest to tura gry nr: " + tour++);
@@ -292,6 +293,7 @@ public class Game extends RandomGenerator {
         return false;
     }
 
+
     public void endDay() {
         for (int i = 0; i < first.getMyProjectList().size(); i++) {
             if ((project.getDateOfCommissioning(first.getMyProjectList().get(i)).isBefore(time) == true)
@@ -331,7 +333,7 @@ public class Game extends RandomGenerator {
                 first.setCash(-project.getAmount_Of_Penalty(first.getMyProjectList().get(i)));
             }
             if ((project.status(first.getProjectsGivedToFriendst().get(i)) == true) &&
-//                    (project.getClientPayDay(first.getProjectsGivedToFriendst().get(i)).isBefore(time) == true) &&
+                    (project.getClientPayDay(first.getProjectsGivedToFriendst().get(i)).isBefore(time) == true) &&
                     (project.getPayed(first.getProjectsGivedToFriendst().get(i)))) {
                 if(project.getControlPoint(first.getProjectsGivedToFriendst().get(i))==true){
                     controlPoint++;
@@ -386,14 +388,9 @@ public class Game extends RandomGenerator {
                                 } else {
                                     System.out.println("\nTen projekt jest już skończony");
                                 }
-
                             }
-
-
                         }
-
                     }
-
                 }//programmers working
             }//programmers working day monday-fiday
             for (int i = 0; i < first.getNumberOfTesters(); i++) {

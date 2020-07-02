@@ -159,7 +159,7 @@ public class RandomGenerator {
 
         Integer createdType  = 0;
 
-
+//Tworzenie typu wyluzowany, wymagający, skrwl
         Integer randomNumber = randomInt(99);
         if (randomNumber <= 33 && randomNumber >= 1) {
             createdType  = 1;
@@ -172,7 +172,7 @@ public class RandomGenerator {
         }
         return createdType;
     }
-
+//unikalne umiejętności poszczególnych pracowników
     public String[] uniqueAbility() {
 
         Integer no = randomInt(3) + 3;
@@ -207,7 +207,7 @@ public class RandomGenerator {
         }
         return value;
     }
-
+//Ogranicznik wprowadzania liczby nie większej niż podana
     public Integer maxInput(int max) {
         Integer number;
         do {
